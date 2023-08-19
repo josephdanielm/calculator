@@ -1,70 +1,74 @@
 function add(a , b) {
-    return a + b;
+    return Number(a) + Number(b);
 }
 
 function subtract(a , b) {
-    return a - b;
+    return Number(a) - Number(b);
 }
 
 function multiply(a , b) {
-    return a * b;
+    return Number(a) * Number(b);
 }
 
 function divide(a , b) {
-    return a / b;
+    return Number(a) / Number(b);
 }
 
 let operandOne
 ,   operandTwo
 ,   operator;
 
-function operate(operator, numberOne, numberTwo) {
-    switch (operator) {
+function operate(inputOperator, numberOne, numberTwo) {
+    switch (inputOperator) {
         case '+':
-            add(numberOne , numberTwo);
+            return add(numberOne , numberTwo);
             break;
 
         case '-':
-            subtract(numberOne , numberTwo);
+            return subtract(numberOne , numberTwo);
             break;
 
         case '*':
-            multiply(numberOne , numberTwo);
+            return multiply(numberOne , numberTwo);
             break;
 
         case '/':
-            divide(numberOne , numberTwo);
+            return divide(numberOne , numberTwo);
             break;
     }
 }
 
 
-let displayValue = document.querySelector('#current-operation');
+let display = document.querySelector('#display');
 
 const numberBtns = document.querySelectorAll('.number-button');
 numberBtns.forEach(btn => {
     btn.addEventListener('click', event => {
-        if (displayValue.textContent === '0') {displayValue.textContent = null}
-        displayValue.textContent += event.target.textContent;
-        console.log(displayValue);
+        display.textContent += event.target.textContent;
     })
-}
-)
+});
 
 
 let clearBtn = document.querySelector('#clear-button');
 
 clearBtn.addEventListener('click', event => {
-    displayValue.textContent = 0;
-})
+    display.textContent = 0;
+
+});
 
 
 const functionBtns = document.querySelectorAll('.functional-button');
 
 functionBtns.forEach(btn => {
     btn.addEventListener('click', event => {
-        operandOne = displayValue.textContent;
-        operator = String(event.target.textContent);
-        displayValue.textContent = 0;
+    
     })
-})
+});
+
+
+const equalsBtn = document.querySelector('#equals-button');
+
+equalsBtn.addEventListener('click', event => {
+
+});
+
