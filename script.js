@@ -17,6 +17,8 @@ function divide(a , b) {
 let operandOne
 ,   operandTwo
 ,   operator
+,   operandOneStored = false
+,   operatorStored = false
 ,   stagedNumber = 0;
 
 function operate(inputOperator, numberOne, numberTwo) {
@@ -45,12 +47,11 @@ let display = document.querySelector('#display');
 const numberBtns = document.querySelectorAll('.number-button');
 numberBtns.forEach(btn => {
     btn.addEventListener('click', event => {
-        if (display.textContent == '0') {
+        if (stagedNumber == '0') {
             display.textContent = null
         }
         display.textContent += event.target.textContent;
         stagedNumber += event.target.textContent;
-        console.log(stagedNumber);
     })
 });
 
@@ -59,7 +60,9 @@ let clearBtn = document.querySelector('#clear-button');
 
 clearBtn.addEventListener('click', event => {
     display.textContent = 0;
-
+    stagedNumber = 0;
+    operandOneStored = false;
+    operatorStored = false;
 });
 
 
@@ -67,7 +70,27 @@ const functionBtns = document.querySelectorAll('.functional-button');
 
 functionBtns.forEach(btn => {
     btn.addEventListener('click', event => {
-    
+        if (operandOneStored && operatorStored) {
+            let result = operate(operator, operandOne, stagedNumber);
+            display.textContent = result;
+            operandOne = result;
+            operator = event.target.textContent;
+            stagedNumber = 0;
+            return false;
+        }
+
+        if (!operandOneStored) {
+            operandOne = stagedNumber;
+            operator = event.target.textContent;
+            operandOneStored = true;
+            operatorStored = true;
+            stagedNumber = 0;
+        }
+
+        if (!operatorStored) {
+            operator = event.target.textContent;
+            operatorStored = true;
+        }
     })
 });
 
@@ -75,11 +98,18 @@ functionBtns.forEach(btn => {
 const equalsBtn = document.querySelector('#equals-button');
 
 equalsBtn.addEventListener('click', event => {
-
+    if (operandOneStored) {
+        let result = operate(operator, operandOne, stagedNumber);
+        display.textContent = result;
+        operandOne = result;
+        stagedNumber = 0;
+        operator = null;
+        operatorStored = false;
+    }
 });
 
-// operandStored = false
-// operatorStored = false
+// operandOneStored = false
+// operatorStored = false 
 
 // Type numbers
     // If (stagedNumber == 0):
@@ -111,5 +141,3 @@ equalsBtn.addEventListener('click', event => {
         // stagedNumber = 0
         // operator = null
         // operatorStored = false
-
-
