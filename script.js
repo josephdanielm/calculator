@@ -92,6 +92,7 @@ functionBtns.forEach(btn => {
             display.textContent = result;
             operandOne = result;
             operator = event.target.textContent;
+            updatingOperation.textContent = `${operandOne} ${operator}`;
             stagedNumber = 0;
             return false;
         }
