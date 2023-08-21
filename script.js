@@ -15,7 +15,6 @@ function divide(a , b) {
 }
 
 let operandOne
-,   operandTwo
 ,   operator
 ,   operandOneStored = false
 ,   operatorStored = false
@@ -36,6 +35,9 @@ function operate(inputOperator, numberOne, numberTwo) {
             break;
 
         case '/':
+            if (numberTwo === '00' || numberTwo === Number('00')) {
+                return 'Error';
+            }
             return divide(numberOne , numberTwo);
             break;
     }
@@ -47,8 +49,16 @@ let display = document.querySelector('#display');
 const numberBtns = document.querySelectorAll('.number-button');
 numberBtns.forEach(btn => {
     btn.addEventListener('click', event => {
+        if (operandOneStored && !operatorStored) {
+            return false;
+        }
         if (stagedNumber == '0') {
-            display.textContent = null
+            display.textContent = null;
+        }
+        if ((typeof stagedNumber) == String) {
+            display.textContent = Number(display.textContent + event.target.textContent);
+            stagedNumber = Number(stagedNumber + event.target.textContent);
+            return false;
         }
         display.textContent += event.target.textContent;
         stagedNumber += event.target.textContent;
@@ -95,10 +105,29 @@ functionBtns.forEach(btn => {
 });
 
 
+const decimalBtn = document.querySelector('#decimal-button');
+
+decimalBtn.addEventListener('click', event => {
+    if ((stagedNumber % 1) != 0) {
+        return false;
+    }
+    if (operandOneStored && stagedNumber === 0) {
+        stagedNumber = operandOne + '.';
+        display.textContent += '.';
+        operandOne = null;
+        operandOneStored = false;
+    } else {
+        stagedNumber += '.';
+        display.textContent += '.';
+        
+
+}});
+
+
 const equalsBtn = document.querySelector('#equals-button');
 
 equalsBtn.addEventListener('click', event => {
-    if (operandOneStored) {
+    if (operandOneStored && operatorStored) {
         let result = operate(operator, operandOne, stagedNumber);
         display.textContent = result;
         operandOne = result;
@@ -141,3 +170,7 @@ equalsBtn.addEventListener('click', event => {
         // stagedNumber = 0
         // operator = null
         // operatorStored = false
+
+
+// If (operandOneStored) but (!operatorStored)
+// you shouldnt be able to type a number
