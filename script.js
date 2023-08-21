@@ -20,6 +20,8 @@ let operandOne
 ,   operatorStored = false
 ,   stagedNumber = 0;
 
+const updatingOperation = document.querySelector('#updating-operation');
+
 function operate(inputOperator, numberOne, numberTwo) {
     switch (inputOperator) {
         case '+':
@@ -35,7 +37,7 @@ function operate(inputOperator, numberOne, numberTwo) {
             break;
 
         case '/':
-            if (numberTwo === '00' || numberTwo === Number('00')) {
+            if (numberTwo === '0' || numberTwo === Number('0')) {
                 return 'Error';
             }
             return divide(numberOne , numberTwo);
@@ -54,6 +56,7 @@ numberBtns.forEach(btn => {
         }
         if (stagedNumber == '0') {
             display.textContent = null;
+            stagedNumber = '';
         }
         if ((typeof stagedNumber) == String) {
             display.textContent = Number(display.textContent + event.target.textContent);
@@ -73,6 +76,7 @@ clearBtn.addEventListener('click', event => {
     stagedNumber = 0;
     operandOneStored = false;
     operatorStored = false;
+    updatingOperation.textContent = '';
 });
 
 
@@ -82,6 +86,9 @@ functionBtns.forEach(btn => {
     btn.addEventListener('click', event => {
         if (operandOneStored && operatorStored) {
             let result = operate(operator, operandOne, stagedNumber);
+            if (result % 1 !== 0 && result.toString().split('.')[1].length > 3) {
+                result = parseFloat(result.toFixed(3));
+            }
             display.textContent = result;
             operandOne = result;
             operator = event.target.textContent;
@@ -92,6 +99,8 @@ functionBtns.forEach(btn => {
         if (!operandOneStored) {
             operandOne = stagedNumber;
             operator = event.target.textContent;
+            updatingOperation.textContent = `${operandOne} ${operator}`;
+            display.textContent = 0;
             operandOneStored = true;
             operatorStored = true;
             stagedNumber = 0;
@@ -100,6 +109,8 @@ functionBtns.forEach(btn => {
         if (!operatorStored) {
             operator = event.target.textContent;
             operatorStored = true;
+            updatingOperation.textContent = `${operandOne} ${operator}`;
+            display.textContent = 0;
         }
     })
 });
@@ -108,7 +119,7 @@ functionBtns.forEach(btn => {
 const decimalBtn = document.querySelector('#decimal-button');
 
 decimalBtn.addEventListener('click', event => {
-    if ((stagedNumber % 1) != 0) {
+    if ((stagedNumber % 1) != 0 || (display.textContent % 1) != 0) {
         return false;
     }
     if (operandOneStored && stagedNumber === 0) {
@@ -128,7 +139,11 @@ const equalsBtn = document.querySelector('#equals-button');
 
 equalsBtn.addEventListener('click', event => {
     if (operandOneStored && operatorStored) {
+        updatingOperation.textContent = `${operandOne} ${operator} ${stagedNumber}`;
         let result = operate(operator, operandOne, stagedNumber);
+        if (result % 1 !== 0 && result.toString().split('.')[1].length > 3) {
+            result = parseFloat(result.toFixed(3));
+        }
         display.textContent = result;
         operandOne = result;
         stagedNumber = 0;
