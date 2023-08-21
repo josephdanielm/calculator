@@ -1,0 +1,83 @@
+@property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+@keyframes rotation {
+    0%   { --gradient-angle: 0deg; }
+    100% { --gradient-angle: 360deg; }
+}
+
+:root {
+    --clr-1: #c7f9cc;
+    --clr-2: #22577a;
+    --clr-3: #38a3a5;
+    --clr-body: #0d1b2a;
+    --clr-calc: #1b263b;
+}
+
+html {
+    min-height: 100%;
+    display: flex;
+}
+
+body {
+    background: var(--clr-body);
+    min-height: 100%;
+    min-width: 100%;
+    display: grid;
+    place-content: center;
+}
+
+#calculator {
+    height: 80vh;
+    width: 60vh;
+    background: var(--clr-calc);
+    border-radius: 0.5rem;
+    position: relative;
+}
+
+#calculator::before,
+#calculator::after {
+    content: '';
+    position: absolute;
+    inset: -0.2rem;
+    z-index: -1;
+    background:  conic-gradient(
+        from var(--gradient-angle),
+        var(--clr-1),
+        var(--clr-2),
+        var(--clr-3),
+        var(--clr-2),
+        var(--clr-1));
+    border-radius: inherit;
+    animation: rotation 15s linear infinite;
+}
+
+#calculator::after {
+    filter: blur(3.5rem);
+}
+
+#calculator {
+    display: flex;
+    flex-direction: column;
+}
+
+#display-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#updating-operation {
+    flex-grow: 1;
+}
+
+#display {
+    flex-grow: 1;
+}
+
+#buttons-container {
+    flex-grow: 3;
+}
