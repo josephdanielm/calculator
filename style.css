@@ -72,26 +72,41 @@ body {
 
 #display-container {
     flex-grow: 1;
-    height: 33%;
+    height: 25%;
     display: flex;
     flex-direction: column;
+    padding: 6px;
+    padding-right: 30px;
 }
 
 #updating-operation {
+    display: inline-block;
+    text-align: end;
     flex-grow: 1;
-    height: 50%;
+    height: 30%;
+    width: 100%;
+    font-size: 5vh;
+    color: white;
+    overflow-x: clip;
+    white-space: nowrap;
 }
 
 #display {
+    display: inline-block;
+    text-align: end;
     flex-grow: 1;
-    height: 50%;
+    height: 70%;
+    width: 100%;
+    font-size: 12vh;
+    color: white;
+    overflow-x: clip;
 }
 
 #buttons-container {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    height: 66%;
+    height: 75%;
     padding: 6px;
     gap: 6px;
 }

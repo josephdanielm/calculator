@@ -142,6 +142,13 @@ equalsBtn.addEventListener('click', event => {
     if (operandOneStored && operatorStored) {
         updatingOperation.textContent = `${operandOne} ${operator} ${stagedNumber}`;
         let result = operate(operator, operandOne, stagedNumber);
+        if (result === 'Error') {
+            display.textContent = result;
+            stagedNumber = 0;
+            operator = null;
+            operatorStored = false;
+            return false;
+        }
         if (result % 1 !== 0 && result.toString().split('.')[1].length > 3) {
             result = parseFloat(result.toFixed(3));
         }
