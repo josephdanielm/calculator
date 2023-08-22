@@ -9,6 +9,12 @@
     100% { --gradient-angle: 360deg; }
 }
 
+@media (max-width: 400px) {
+    .row {
+      display: block;
+    }
+  }
+
 :root {
     --clr-1: #c7f9cc;
     --clr-2: #22577a;
@@ -66,18 +72,52 @@ body {
 
 #display-container {
     flex-grow: 1;
+    height: 33%;
     display: flex;
     flex-direction: column;
 }
 
 #updating-operation {
     flex-grow: 1;
+    height: 50%;
 }
 
 #display {
     flex-grow: 1;
+    height: 50%;
 }
 
 #buttons-container {
-    flex-grow: 3;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 66%;
+    padding: 6px;
+    gap: 6px;
+}
+
+button {
+    border-radius: 6px;
+}
+
+.row {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.col {
+    flex: 1;
+    gap: 6px;
+}
+
+#clear-button {
+    flex: 1 0 71%;
+    /* flex-basis: 75%; */
+}
+
+#divide-button {
+    flex: 1 0 20%;
+    /* flex-basis: 25%; */
 }
