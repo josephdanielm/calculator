@@ -37,6 +37,9 @@ function operate(inputOperator, numberOne, numberTwo) {
             break;
 
         case '/':
+            if (numberOne === 0 && numberTwo === 0) {
+                return 1;
+            }
             if (numberTwo === '0' || numberTwo === Number('0')) {
                 return 'Error';
             }
@@ -120,10 +123,10 @@ functionBtns.forEach(btn => {
 const decimalBtn = document.querySelector('#decimal-button');
 
 decimalBtn.addEventListener('click', event => {
-    if ((stagedNumber % 1) != 0 || (display.textContent % 1) != 0) {
+    if ((stagedNumber % 1) != 0 || (display.textContent % 1) != 0 || stagedNumber === '0.') {
         return false;
     }
-    if (operandOneStored && stagedNumber === 0) {
+    if (operandOneStored && !operatorStored && stagedNumber === 0) {
         stagedNumber = operandOne + '.';
         display.textContent += '.';
         operandOne = null;

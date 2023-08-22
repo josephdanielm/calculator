@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @property --gradient-angle {
     syntax: "<angle>";
     initial-value: 0deg;
@@ -16,16 +18,17 @@
   }
 
 :root {
-    --clr-1: #c7f9cc;
-    --clr-2: #22577a;
-    --clr-3: #38a3a5;
-    --clr-body: #0d1b2a;
-    --clr-calc: #1b263b;
+    --clr-1: #cdc1ff;
+    --clr-2: #7371fc;
+    --clr-3: #a594f9;
+    --clr-body: #141414;
+    --clr-calc: #191919;
 }
 
 html {
     min-height: 100%;
     display: flex;
+    font-family: 'Inter', sans-serif;
 }
 
 body {
@@ -34,6 +37,7 @@ body {
     min-width: 100%;
     display: grid;
     place-content: center;
+    margin: 0;
 }
 
 #calculator {
@@ -71,7 +75,7 @@ body {
 }
 
 #display-container {
-    flex-grow: 1;
+    flex: auto;
     height: 25%;
     display: flex;
     flex-direction: column;
@@ -83,7 +87,7 @@ body {
     display: inline-block;
     text-align: end;
     flex-grow: 1;
-    height: 30%;
+    height: 5vh;
     width: 100%;
     font-size: 5vh;
     color: white;
@@ -113,6 +117,19 @@ body {
 
 button {
     border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 6vh;
+    color: white;
+    background-color: #191919;
+    border: none;
+    cursor: pointer;
+    box-shadow: inset 3px 3px 7px #353535,
+    inset -3px -3px 7px #0b0b0b;
+}
+
+button:active {
+    box-shadow:  inset -3px -3px 7px #353535,
+    inset 3px 3px 7px #0b0b0b;  
 }
 
 .row {
@@ -136,3 +153,26 @@ button {
     flex: 1 0 20%;
     /* flex-basis: 25%; */
 }
+
+.functional-button {
+    color: #7371fc;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 150px;
+    height: 30px;
+    border: solid 2px var(--clr-2);
+    border-left: none;
+    border-bottom: none;
+    border-radius: 0px 6px 0px 0px;
+    background-color: var(--clr-body);
+    color: var(--clr-3);
+    text-align: center;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
